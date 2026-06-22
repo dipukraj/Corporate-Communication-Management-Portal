@@ -46,13 +46,37 @@ const Login = () => {
     }
   };
 
+  const isLocalhost =
+    window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+  const isLiveWithoutBackend =
+    !isLocalhost && API_BASE.includes('localhost');
+
   return (
     <div className="login-page">
       <div className="login-card">
         <h1>CMS Portal</h1>
         <p className="subtitle">Corporate Communication Management System</p>
 
-        {backendOnline === false && (
+        {backendOnline === false && isLiveWithoutBackend && (
+          <div
+            style={{
+              background: '#fef2f2',
+              border: '1px solid #fecaca',
+              color: '#991b1b',
+              padding: '12px',
+              borderRadius: '8px',
+              marginBottom: '20px',
+              fontSize: '0.875rem',
+            }}
+          >
+            <strong>Backend deploy nahi hua!</strong>
+            <br />
+            Netlify sirf frontend host karta hai. Backend <strong>Render</strong> par deploy karo,
+            phir Netlify mein <code>VITE_API_URL</code> set karke site dubara deploy karo.
+          </div>
+        )}
+
+        {backendOnline === false && !isLiveWithoutBackend && isLocalhost && (
           <div
             style={{
               background: '#fef2f2',
@@ -67,6 +91,26 @@ const Login = () => {
             <strong>Backend offline!</strong> PowerShell mein ye chalao:
             <br />
             <code>cd backend</code> → <code>npm run dev</code>
+            <br />
+            Ya root folder se: <code>npm run dev</code>
+          </div>
+        )}
+
+        {backendOnline === false && !isLiveWithoutBackend && !isLocalhost && (
+          <div
+            style={{
+              background: '#fef2f2',
+              border: '1px solid #fecaca',
+              color: '#991b1b',
+              padding: '12px',
+              borderRadius: '8px',
+              marginBottom: '20px',
+              fontSize: '0.875rem',
+            }}
+          >
+            <strong>Backend server reach nahi ho raha!</strong>
+            <br />
+            Render par backend check karo — sleep mode mein ho to 30 sec wait karo, phir refresh.
           </div>
         )}
 

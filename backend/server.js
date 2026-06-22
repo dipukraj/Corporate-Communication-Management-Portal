@@ -26,7 +26,8 @@ app.use(
       if (
         allowedOrigins.includes(origin) ||
         origin.endsWith('.netlify.app') ||
-        origin.endsWith('.onrender.com')
+        origin.endsWith('.onrender.com') ||
+        origin.endsWith('.railway.app')
       ) {
         return callback(null, true);
       }
