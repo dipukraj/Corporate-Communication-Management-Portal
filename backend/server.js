@@ -27,7 +27,9 @@ app.use(
         allowedOrigins.includes(origin) ||
         origin.endsWith('.netlify.app') ||
         origin.endsWith('.onrender.com') ||
-        origin.endsWith('.railway.app')
+        origin.endsWith('.railway.app') ||
+        origin.endsWith('.web.app') ||
+        origin.endsWith('.firebaseapp.com')
       ) {
         return callback(null, true);
       }
