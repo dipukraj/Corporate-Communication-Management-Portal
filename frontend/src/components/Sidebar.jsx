@@ -12,7 +12,7 @@ import {
 import { useAuth } from '../context/AuthContext';
 
 const Sidebar = ({ isOpen, onClose }) => {
-  const { isAdmin, isEditor } = useAuth();
+  const { isAdmin, isEditor, isViewer } = useAuth();
 
   const linkStyle = ({ isActive }) => ({
     display: 'flex',
@@ -66,9 +66,11 @@ const Sidebar = ({ isOpen, onClose }) => {
         </>
       )}
 
-      <NavLink to="/upload" style={linkStyle} onClick={handleLinkClick}>
-        <FiUpload /> Upload Content
-      </NavLink>
+      {!isViewer && (
+        <NavLink to="/upload" style={linkStyle} onClick={handleLinkClick}>
+          <FiUpload /> Upload Content
+        </NavLink>
+      )}
 
       <NavLink to="/magazine" style={linkStyle} onClick={handleLinkClick}>
         <FiBookOpen /> Magazines

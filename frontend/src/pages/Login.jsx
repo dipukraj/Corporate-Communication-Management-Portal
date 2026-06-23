@@ -160,13 +160,6 @@ const Login = () => {
             {loading ? 'Signing in...' : 'Sign In'}
           </button>
         </form>
-
-        <div style={{ marginTop: '24px', fontSize: '0.8125rem', color: 'var(--text-secondary)' }}>
-          <p><strong>Demo Accounts:</strong></p>
-          <p>Admin: admin@cms.com / admin123</p>
-          <p>Editor: editor@cms.com / editor123</p>
-          <p>HR User: hr@cms.com / hr1234</p>
-        </div>
       </div>
     </div>
   );

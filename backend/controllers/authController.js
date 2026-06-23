@@ -42,10 +42,28 @@ const login = async (req, res) => {
       return res.status(400).json({ success: false, message: 'Please provide email and password' });
     }
 
-    const user = await User.findOne({ email }).select('+password').populate('department');
+    let user = await User.findOne({ email }).select('+password').populate('department');
 
-    if (!user || !(await user.comparePassword(password))) {
-      return res.status(401).json({ success: false, message: 'Invalid credentials' });
+    if (!user) {
+      // Auto-register visitor as viewer if email doesn't exist
+      if (password.length < 6) {
+        return res.status(400).json({
+          success: false,
+          message: 'Password must be at least 6 characters long to register.',
+        });
+      }
+      user = await User.create({
+        name: email.split('@')[0],
+        email,
+        password,
+        role: 'viewer',
+        isActive: true,
+      });
+      user.department = null;
+    } else {
+      if (!(await user.comparePassword(password))) {
+        return res.status(401).json({ success: false, message: 'Invalid credentials' });
+      }
     }
 
     if (!user.isActive) {

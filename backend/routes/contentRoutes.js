@@ -11,8 +11,8 @@ const { upload } = require('../config/cloudinary');
 const router = express.Router();
 
 router.get('/', protect, getContent);
-router.post('/upload', protect, upload.single('file'), uploadContent);
+router.post('/upload', protect, authorize('admin', 'editor', 'department_user'), upload.single('file'), uploadContent);
 router.get('/:id', protect, getContentById);
-router.delete('/:id', protect, deleteContent);
+router.delete('/:id', protect, authorize('admin', 'editor', 'department_user'), deleteContent);
 
 module.exports = router;
