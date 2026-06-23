@@ -1,11 +1,16 @@
 const dns = require('dns');
 const mongoose = require('mongoose');
 
-// College/office WiFi DNS SRV block karta hai — Google DNS use karo
-dns.setServers(['8.8.8.8', '8.8.4.4', '1.1.1.1']);
-
-if (dns.setDefaultResultOrder) {
-  dns.setDefaultResultOrder('ipv4first');
+// College/office WiFi DNS SRV block karta hai — Google DNS use karo (only in local development)
+if (process.env.NODE_ENV !== 'production') {
+  try {
+    dns.setServers(['8.8.8.8', '8.8.4.4', '1.1.1.1']);
+    if (dns.setDefaultResultOrder) {
+      dns.setDefaultResultOrder('ipv4first');
+    }
+  } catch (err) {
+    console.warn('⚠️ Could not set custom DNS servers:', err.message);
+  }
 }
 
 const connectDB = async () => {
