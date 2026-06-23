@@ -28,8 +28,14 @@ const Navbar = ({ onToggleSidebar }) => {
         <button
           className="btn btn-outline btn-sm"
           onClick={onToggleSidebar}
-          style={{ display: 'none' }}
           id="sidebar-toggle"
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '8px',
+            fontSize: '1.25rem',
+          }}
         >
           <FiMenu />
         </button>

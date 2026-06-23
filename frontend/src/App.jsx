@@ -15,13 +15,18 @@ import Profile from './pages/Profile';
 import ActivityLogs from './pages/ActivityLogs';
 
 const Layout = ({ children }) => {
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(window.innerWidth > 768);
+
+  const closeSidebar = () => setSidebarOpen(false);
 
   return (
     <div className="app-layout">
       <Navbar onToggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
-      <Sidebar isOpen={sidebarOpen} />
-      <main className="main-content">{children}</main>
+      {sidebarOpen && (
+        <div className="sidebar-overlay" onClick={closeSidebar} />
+      )}
+      <Sidebar isOpen={sidebarOpen} onClose={closeSidebar} />
+      <main className={`main-content ${sidebarOpen ? 'sidebar-open' : ''}`}>{children}</main>
     </div>
   );
 };

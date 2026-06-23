@@ -11,7 +11,7 @@ import {
 } from 'react-icons/fi';
 import { useAuth } from '../context/AuthContext';
 
-const Sidebar = ({ isOpen }) => {
+const Sidebar = ({ isOpen, onClose }) => {
   const { isAdmin, isEditor } = useAuth();
 
   const linkStyle = ({ isActive }) => ({
@@ -28,6 +28,12 @@ const Sidebar = ({ isOpen }) => {
     transition: 'all 0.2s',
   });
 
+  const handleLinkClick = () => {
+    if (window.innerWidth <= 768 && onClose) {
+      onClose();
+    }
+  };
+
   return (
     <aside
       style={{
@@ -40,44 +46,45 @@ const Sidebar = ({ isOpen }) => {
         borderRight: '1px solid var(--border-color)',
         padding: '16px 0',
         overflowY: 'auto',
-        transform: isOpen ? 'translateX(0)' : undefined,
+        transform: isOpen ? 'translateX(0)' : 'translateX(-100%)',
+        transition: 'transform 0.3s ease',
         zIndex: 99,
       }}
     >
-      <NavLink to="/dashboard" style={linkStyle}>
+      <NavLink to="/dashboard" style={linkStyle} onClick={handleLinkClick}>
         <FiHome /> Dashboard
       </NavLink>
 
       {(isAdmin || isEditor) && (
         <>
-          <NavLink to="/users" style={linkStyle}>
+          <NavLink to="/users" style={linkStyle} onClick={handleLinkClick}>
             <FiUsers /> User Management
           </NavLink>
-          <NavLink to="/departments" style={linkStyle}>
+          <NavLink to="/departments" style={linkStyle} onClick={handleLinkClick}>
             <FiBriefcase /> Departments
           </NavLink>
         </>
       )}
 
-      <NavLink to="/upload" style={linkStyle}>
+      <NavLink to="/upload" style={linkStyle} onClick={handleLinkClick}>
         <FiUpload /> Upload Content
       </NavLink>
 
-      <NavLink to="/magazine" style={linkStyle}>
+      <NavLink to="/magazine" style={linkStyle} onClick={handleLinkClick}>
         <FiBookOpen /> Magazines
       </NavLink>
 
-      <NavLink to="/gallery" style={linkStyle}>
+      <NavLink to="/gallery" style={linkStyle} onClick={handleLinkClick}>
         <FiImage /> Media Gallery
       </NavLink>
 
       {isAdmin && (
-        <NavLink to="/activity-logs" style={linkStyle}>
+        <NavLink to="/activity-logs" style={linkStyle} onClick={handleLinkClick}>
           <FiActivity /> Activity Logs
         </NavLink>
       )}
 
-      <NavLink to="/profile" style={linkStyle}>
+      <NavLink to="/profile" style={linkStyle} onClick={handleLinkClick}>
         <FiUser /> Profile
       </NavLink>
     </aside>

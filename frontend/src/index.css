@@ -64,10 +64,16 @@ textarea {
 
 .main-content {
   flex: 1;
-  margin-left: 260px;
+  margin-left: 0;
   margin-top: var(--navbar-height);
   padding: 24px;
-  transition: margin-left 0.3s;
+  transition: margin-left 0.3s ease;
+}
+
+@media (min-width: 769px) {
+  .main-content.sidebar-open {
+    margin-left: 260px;
+  }
 }
 
 .page-header {
@@ -374,8 +380,23 @@ textarea {
   color: var(--text-secondary);
 }
 
-/* Responsive */
+/* Sidebar Backdrop for Mobile */
+.sidebar-overlay {
+  display: none;
+}
+
 @media (max-width: 768px) {
+  .sidebar-overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    top: var(--navbar-height);
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(2px);
+    z-index: 98;
+    transition: opacity 0.3s ease;
+  }
+
   .main-content {
     margin-left: 0;
     padding: 16px;
