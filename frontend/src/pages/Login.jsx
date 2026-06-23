@@ -71,7 +71,7 @@ const Login = () => {
           >
             <strong>Backend deploy nahi hua!</strong>
             <br />
-            Netlify sirf frontend host karta hai. Backend <strong>Render</strong> par deploy karo,
+            Netlify sirf frontend host karta hai. Backend <strong>Railway</strong> ya <strong>Render</strong> par deploy karo,
             phir Netlify mein <code>VITE_API_URL</code> set karke site dubara deploy karo.
           </div>
         )}
@@ -110,7 +110,7 @@ const Login = () => {
           >
             <strong>Backend server reach nahi ho raha!</strong>
             <br />
-            Render par backend check karo — sleep mode mein ho to 30 sec wait karo, phir refresh.
+            {API_BASE.includes('railway.app') ? 'Railway' : API_BASE.includes('onrender.com') ? 'Render' : 'Backend hosting dashboard'} par status aur logs check karo.
           </div>
         )}
 
