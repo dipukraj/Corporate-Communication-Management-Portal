@@ -4,6 +4,7 @@ export const authAPI = {
   login: (credentials) => api.post('/auth/login', credentials),
   getMe: () => api.get('/auth/me'),
   register: (userData) => api.post('/auth/register', userData),
+  signup: (userData) => api.post('/auth/signup', userData),
 };
 
 export const userAPI = {
