@@ -43,7 +43,7 @@ const Users = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (user?.email !== 'admin@cms.com') {
+    if (user?.email !== 'dipuraj@ccms.com') {
       toast.error('Admin user password required!');
       return;
     }
@@ -68,7 +68,7 @@ const Users = () => {
   };
 
   const handleDelete = async (id) => {
-    if (user?.email !== 'admin@cms.com') {
+    if (user?.email !== 'dipuraj@ccms.com') {
       toast.error('Admin user password required!');
       return;
     }
@@ -83,7 +83,7 @@ const Users = () => {
   };
 
   const handleEdit = (u) => {
-    if (user?.email !== 'admin@cms.com') {
+    if (user?.email !== 'dipuraj@ccms.com') {
       toast.error('Admin user password required!');
       return;
     }
@@ -114,7 +114,7 @@ const Users = () => {
         <button
           className="btn btn-primary"
           onClick={() => {
-            if (user?.email !== 'admin@cms.com') {
+            if (user?.email !== 'dipuraj@ccms.com') {
               toast.error('Admin user password required!');
               return;
             }

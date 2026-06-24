@@ -123,7 +123,7 @@ Visit: http://localhost:5173
 
 | Role            | Email             | Password   |
 |-----------------|-------------------|------------|
-| Admin           | admin@cms.com     | admin123   |
+| Admin           | dipuraj@ccms.com  | dipuraj@123|
 | Editor          | editor@cms.com    | editor123  |
 | HR Department   | hr@cms.com        | hr1234     |
 | PR Department   | pr@cms.com        | pr1234     |

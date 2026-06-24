@@ -47,7 +47,7 @@ const Gallery = () => {
   };
 
   const handleDelete = async (id) => {
-    if (user?.email !== 'admin@cms.com') {
+    if (user?.email !== 'dipuraj@ccms.com') {
       toast.error('Admin user password required!');
       return;
     }

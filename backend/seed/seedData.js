@@ -20,9 +20,9 @@ const seedData = async () => {
 
     await User.create([
       {
-        name: 'Admin User',
-        email: 'admin@cms.com',
-        password: 'admin123',
+        name: 'Dipu Admin User',
+        email: 'dipuraj@ccms.com',
+        password: 'dipuraj@123',
         role: 'admin',
       },
       {
@@ -50,7 +50,7 @@ const seedData = async () => {
 
     console.log('Seed data inserted successfully!');
     console.log('\n--- Login Credentials ---');
-    console.log('Admin:  admin@cms.com / admin123');
+    console.log('Admin:  dipuraj@ccms.com / dipuraj@123');
     console.log('Editor: editor@cms.com / editor123');
     console.log('HR:     hr@cms.com / hr1234');
     console.log('PR:     pr@cms.com / pr1234');

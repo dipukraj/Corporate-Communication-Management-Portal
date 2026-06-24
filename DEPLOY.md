@@ -178,7 +178,7 @@ npm run seed
 ```
 
 Demo logins:
-- Admin: `admin@cms.com` / `admin123`
+- Admin: `dipuraj@ccms.com` / `dipuraj@123`
 - HR: `hr@cms.com` / `hr1234`
 
 ---
