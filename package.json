@@ -4,6 +4,7 @@
   "private": true,
   "description": "Corporate Communication Management Portal - MERN Stack",
   "scripts": {
+    "postinstall": "npm install --prefix backend",
     "start": "npm start --prefix backend",
     "dev": "concurrently -n backend,frontend -c blue,green \"npm run dev --prefix backend\" \"npm run dev --prefix frontend\"",
     "install:all": "npm install && npm install --prefix backend && npm install --prefix frontend",
