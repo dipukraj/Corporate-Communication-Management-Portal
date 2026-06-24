@@ -67,11 +67,11 @@ app.use(errorHandler);
 const PORT = process.env.PORT || 5000;
 
 const startServer = async () => {
-  connectDB();
+  const isConnected = await connectDB();
 
   const server = app.listen(PORT, () => {
     console.log(`🚀 Server running on port ${PORT}`);
-    if (mongoose.connection.readyState !== 1) {
+    if (!isConnected) {
       console.log('⚠️  Server chal raha hai lekin MongoDB connect nahi hai — login kaam nahi karega.');
     }
   });
