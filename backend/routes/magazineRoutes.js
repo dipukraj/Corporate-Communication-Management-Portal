@@ -4,13 +4,13 @@ const {
   getMagazines,
   deleteMagazine,
 } = require('../controllers/magazineController');
-const { protect, authorize } = require('../middleware/auth');
+const { protect, authorize, adminOnly } = require('../middleware/auth');
 const { upload } = require('../config/cloudinary');
 
 const router = express.Router();
 
 router.get('/', protect, getMagazines);
-router.post('/', protect, authorize('admin', 'editor'), upload.single('pdf'), createMagazine);
-router.delete('/:id', protect, authorize('admin', 'editor'), deleteMagazine);
+router.post('/', protect, adminOnly, upload.single('pdf'), createMagazine);
+router.delete('/:id', protect, adminOnly, deleteMagazine);
 
 module.exports = router;

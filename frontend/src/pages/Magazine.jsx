@@ -10,7 +10,7 @@ const months = [
 ];
 
 const Magazine = () => {
-  const { isAdmin, isEditor } = useAuth();
+  const { user } = useAuth();
   const [magazines, setMagazines] = useState([]);
   const [departments, setDepartments] = useState([]);
   const [showForm, setShowForm] = useState(false);
@@ -54,6 +54,10 @@ const Magazine = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (user?.email !== 'admin@cms.com') {
+      toast.error('Admin user password required!');
+      return;
+    }
     if (!form.pdf) {
       toast.error('Please upload a PDF file');
       return;
@@ -89,6 +93,10 @@ const Magazine = () => {
   };
 
   const handleDelete = async (id) => {
+    if (user?.email !== 'admin@cms.com') {
+      toast.error('Admin user password required!');
+      return;
+    }
     if (!window.confirm('Delete this magazine?')) return;
     try {
       await magazineAPI.delete(id);
@@ -106,11 +114,18 @@ const Magazine = () => {
           <h1>Magazine Management</h1>
           <p>Manage e-magazines and publications</p>
         </div>
-        {(isAdmin || isEditor) && (
-          <button className="btn btn-primary" onClick={() => setShowForm(!showForm)}>
-            <FiPlus /> Create Magazine
-          </button>
-        )}
+        <button
+          className="btn btn-primary"
+          onClick={() => {
+            if (user?.email !== 'admin@cms.com') {
+              toast.error('Admin user password required!');
+              return;
+            }
+            setShowForm(!showForm);
+          }}
+        >
+          <FiPlus /> Create Magazine
+        </button>
       </div>
 
       <div className="gallery-filters">
@@ -136,7 +151,7 @@ const Magazine = () => {
         />
       </div>
 
-      {showForm && (isAdmin || isEditor) && (
+      {showForm && (
         <form className="form-card" onSubmit={handleSubmit} style={{ marginBottom: '24px' }}>
           <h3 style={{ marginBottom: '20px' }}>Create Magazine Entry</h3>
           <div className="form-group">
@@ -232,11 +247,9 @@ const Magazine = () => {
                 <a href={mag.pdfUrl} target="_blank" rel="noreferrer" className="btn btn-primary btn-sm">
                   <FiDownload /> Download
                 </a>
-                {(isAdmin || isEditor) && (
                   <button className="btn btn-danger btn-sm" onClick={() => handleDelete(mag._id)}>
                     <FiTrash2 />
                   </button>
-                )}
               </div>
             </div>
           ))

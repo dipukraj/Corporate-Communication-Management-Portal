@@ -5,7 +5,7 @@ import { userAPI, departmentAPI, authAPI } from '../services/apiServices';
 import { useAuth } from '../context/AuthContext';
 
 const Users = () => {
-  const { isAdmin } = useAuth();
+  const { user } = useAuth();
   const [users, setUsers] = useState([]);
   const [departments, setDepartments] = useState([]);
   const [showForm, setShowForm] = useState(false);
@@ -43,6 +43,10 @@ const Users = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (user?.email !== 'admin@cms.com') {
+      toast.error('Admin user password required!');
+      return;
+    }
     try {
       if (editUser) {
         await userAPI.update(editUser._id, {
@@ -64,6 +68,10 @@ const Users = () => {
   };
 
   const handleDelete = async (id) => {
+    if (user?.email !== 'admin@cms.com') {
+      toast.error('Admin user password required!');
+      return;
+    }
     if (!window.confirm('Are you sure you want to delete this user?')) return;
     try {
       await userAPI.delete(id);
@@ -74,14 +82,18 @@ const Users = () => {
     }
   };
 
-  const handleEdit = (user) => {
-    setEditUser(user);
+  const handleEdit = (u) => {
+    if (user?.email !== 'admin@cms.com') {
+      toast.error('Admin user password required!');
+      return;
+    }
+    setEditUser(u);
     setForm({
-      name: user.name,
-      email: user.email,
+      name: u.name,
+      email: u.email,
       password: '',
-      role: user.role,
-      department: user.department?._id || '',
+      role: u.role,
+      department: u.department?._id || '',
     });
     setShowForm(true);
   };
@@ -99,14 +111,21 @@ const Users = () => {
           <h1>User Management</h1>
           <p>Manage users and their roles</p>
         </div>
-        {isAdmin && (
-          <button className="btn btn-primary" onClick={() => setShowForm(!showForm)}>
-            <FiPlus /> Add User
-          </button>
-        )}
+        <button
+          className="btn btn-primary"
+          onClick={() => {
+            if (user?.email !== 'admin@cms.com') {
+              toast.error('Admin user password required!');
+              return;
+            }
+            setShowForm(!showForm);
+          }}
+        >
+          <FiPlus /> Add User
+        </button>
       </div>
 
-      {showForm && isAdmin && (
+      {showForm && (
         <form className="form-card" onSubmit={handleSubmit} style={{ marginBottom: '24px' }}>
           <h3 style={{ marginBottom: '20px' }}>{editUser ? 'Edit User' : 'Add New User'}</h3>
           <div className="form-row">
@@ -170,7 +189,6 @@ const Users = () => {
                 <td><span className={`badge badge-${user.role}`}>{user.role.replace('_', ' ')}</span></td>
                 <td>{user.department?.name || '-'}</td>
                 <td>
-                  {isAdmin && (
                     <div style={{ display: 'flex', gap: '8px' }}>
                       <button className="btn btn-outline btn-sm" onClick={() => handleEdit(user)}>
                         <FiEdit2 />
@@ -179,7 +197,6 @@ const Users = () => {
                         <FiTrash2 />
                       </button>
                     </div>
-                  )}
                 </td>
               </tr>
             ))}

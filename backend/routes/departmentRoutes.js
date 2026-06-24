@@ -5,13 +5,13 @@ const {
   updateDepartment,
   deleteDepartment,
 } = require('../controllers/departmentController');
-const { protect, authorize } = require('../middleware/auth');
+const { protect, authorize, adminOnly } = require('../middleware/auth');
 
 const router = express.Router();
 
 router.get('/', protect, getDepartments);
-router.post('/', protect, authorize('admin'), createDepartment);
-router.put('/:id', protect, authorize('admin'), updateDepartment);
-router.delete('/:id', protect, authorize('admin'), deleteDepartment);
+router.post('/', protect, adminOnly, createDepartment);
+router.put('/:id', protect, adminOnly, updateDepartment);
+router.delete('/:id', protect, adminOnly, deleteDepartment);
 
 module.exports = router;

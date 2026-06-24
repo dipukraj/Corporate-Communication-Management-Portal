@@ -55,22 +55,17 @@ const Sidebar = ({ isOpen, onClose }) => {
         <FiHome /> Dashboard
       </NavLink>
 
-      {(isAdmin || isEditor) && (
-        <>
-          <NavLink to="/users" style={linkStyle} onClick={handleLinkClick}>
-            <FiUsers /> User Management
-          </NavLink>
-          <NavLink to="/departments" style={linkStyle} onClick={handleLinkClick}>
-            <FiBriefcase /> Departments
-          </NavLink>
-        </>
-      )}
+      <NavLink to="/users" style={linkStyle} onClick={handleLinkClick}>
+        <FiUsers /> User Management
+      </NavLink>
 
-      {!isViewer && (
-        <NavLink to="/upload" style={linkStyle} onClick={handleLinkClick}>
-          <FiUpload /> Upload Content
-        </NavLink>
-      )}
+      <NavLink to="/departments" style={linkStyle} onClick={handleLinkClick}>
+        <FiBriefcase /> Departments
+      </NavLink>
+
+      <NavLink to="/upload" style={linkStyle} onClick={handleLinkClick}>
+        <FiUpload /> Upload Content
+      </NavLink>
 
       <NavLink to="/magazine" style={linkStyle} onClick={handleLinkClick}>
         <FiBookOpen /> Magazines
@@ -80,11 +75,9 @@ const Sidebar = ({ isOpen, onClose }) => {
         <FiImage /> Media Gallery
       </NavLink>
 
-      {isAdmin && (
-        <NavLink to="/activity-logs" style={linkStyle} onClick={handleLinkClick}>
-          <FiActivity /> Activity Logs
-        </NavLink>
-      )}
+      <NavLink to="/activity-logs" style={linkStyle} onClick={handleLinkClick}>
+        <FiActivity /> Activity Logs
+      </NavLink>
 
       <NavLink to="/profile" style={linkStyle} onClick={handleLinkClick}>
         <FiUser /> Profile

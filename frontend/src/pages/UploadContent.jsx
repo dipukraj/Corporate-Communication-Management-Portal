@@ -41,6 +41,10 @@ const UploadContent = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (user?.email !== 'admin@cms.com') {
+      toast.error('Admin user password required!');
+      return;
+    }
     if (!form.file) {
       toast.error('Please select a file');
       return;

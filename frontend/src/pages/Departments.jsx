@@ -2,8 +2,10 @@ import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { FiPlus, FiTrash2 } from 'react-icons/fi';
 import { departmentAPI } from '../services/apiServices';
+import { useAuth } from '../context/AuthContext';
 
 const Departments = () => {
+  const { user } = useAuth();
   const [departments, setDepartments] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [form, setForm] = useState({ name: '', description: '' });
@@ -23,6 +25,10 @@ const Departments = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (user?.email !== 'admin@cms.com') {
+      toast.error('Admin user password required!');
+      return;
+    }
     try {
       await departmentAPI.create(form);
       toast.success('Department created');
@@ -35,6 +41,10 @@ const Departments = () => {
   };
 
   const handleDelete = async (id) => {
+    if (user?.email !== 'admin@cms.com') {
+      toast.error('Admin user password required!');
+      return;
+    }
     if (!window.confirm('Delete this department?')) return;
     try {
       await departmentAPI.delete(id);
@@ -52,7 +62,16 @@ const Departments = () => {
           <h1>Department Management</h1>
           <p>Manage organizational departments</p>
         </div>
-        <button className="btn btn-primary" onClick={() => setShowForm(!showForm)}>
+        <button
+          className="btn btn-primary"
+          onClick={() => {
+            if (user?.email !== 'admin@cms.com') {
+              toast.error('Admin user password required!');
+              return;
+            }
+            setShowForm(!showForm);
+          }}
+        >
           <FiPlus /> Add Department
         </button>
       </div>

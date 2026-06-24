@@ -36,4 +36,14 @@ const authorize = (...roles) => {
   };
 };
 
-module.exports = { protect, authorize };
+const adminOnly = (req, res, next) => {
+  if (!req.user || req.user.email !== 'admin@cms.com') {
+    return res.status(403).json({
+      success: false,
+      message: 'Only the main admin user is authorized to perform this action.',
+    });
+  }
+  next();
+};
+
+module.exports = { protect, authorize, adminOnly };

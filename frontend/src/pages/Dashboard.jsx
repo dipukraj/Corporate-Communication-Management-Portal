@@ -15,17 +15,9 @@ const Dashboard = () => {
 
   const fetchData = async () => {
     try {
-      if (isAdmin || isEditor) {
-        const statsRes = await dashboardAPI.getStats();
-        setStats(statsRes.data.data);
-        setRecentUploads(statsRes.data.data.recentUploads);
-      } else {
-        const contentRes = await contentAPI.getAll();
-        setRecentUploads(contentRes.data.data.slice(0, 5));
-        setStats({
-          totalFiles: contentRes.data.count,
-        });
-      }
+      const statsRes = await dashboardAPI.getStats();
+      setStats(statsRes.data.data);
+      setRecentUploads(statsRes.data.data.recentUploads);
     } catch (error) {
       console.error(error);
     } finally {
@@ -42,18 +34,12 @@ const Dashboard = () => {
         <p>Welcome back, {user?.name}!</p>
       </div>
 
-      {(isAdmin || isEditor) && stats && (
+      {stats && (
         <div className="stats-grid">
           <Card title="Total Users" value={stats.totalUsers} icon="users" color="#2563eb" />
           <Card title="Departments" value={stats.totalDepartments} icon="folder" color="#16a34a" />
           <Card title="Uploaded Files" value={stats.totalFiles} icon="image" color="#d97706" />
           <Card title="Magazines" value={stats.totalMagazines} icon="book" color="#9333ea" />
-        </div>
-      )}
-
-      {!isAdmin && !isEditor && stats && (
-        <div className="stats-grid">
-          <Card title="My Uploads" value={stats.totalFiles} icon="image" color="#2563eb" />
         </div>
       )}
 

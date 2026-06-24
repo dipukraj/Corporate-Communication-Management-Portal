@@ -5,7 +5,7 @@ import { contentAPI, departmentAPI } from '../services/apiServices';
 import { useAuth } from '../context/AuthContext';
 
 const Gallery = () => {
-  const { isAdmin, isEditor } = useAuth();
+  const { user } = useAuth();
   const [content, setContent] = useState([]);
   const [departments, setDepartments] = useState([]);
   const [preview, setPreview] = useState(null);
@@ -47,6 +47,10 @@ const Gallery = () => {
   };
 
   const handleDelete = async (id) => {
+    if (user?.email !== 'admin@cms.com') {
+      toast.error('Admin user password required!');
+      return;
+    }
     if (!window.confirm('Delete this content?')) return;
     try {
       await contentAPI.delete(id);
@@ -149,11 +153,9 @@ const Gallery = () => {
                   <a href={item.fileUrl} target="_blank" rel="noreferrer" className="btn btn-primary btn-sm">
                     <FiDownload />
                   </a>
-                  {(isAdmin || isEditor) && (
                     <button className="btn btn-danger btn-sm" onClick={() => handleDelete(item._id)}>
                       <FiTrash2 />
                     </button>
-                  )}
                 </div>
               </div>
             </div>

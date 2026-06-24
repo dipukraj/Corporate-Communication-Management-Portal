@@ -64,7 +64,7 @@ function App() {
       <Route
         path="/users"
         element={
-          <ProtectedRoute roles={['admin', 'editor']}>
+          <ProtectedRoute>
             <Layout>
               <Users />
             </Layout>
@@ -75,7 +75,7 @@ function App() {
       <Route
         path="/departments"
         element={
-          <ProtectedRoute roles={['admin']}>
+          <ProtectedRoute>
             <Layout>
               <Departments />
             </Layout>
@@ -86,7 +86,7 @@ function App() {
       <Route
         path="/upload"
         element={
-          <ProtectedRoute roles={['admin', 'editor', 'department_user']}>
+          <ProtectedRoute>
             <Layout>
               <UploadContent />
             </Layout>
@@ -130,7 +130,7 @@ function App() {
       <Route
         path="/activity-logs"
         element={
-          <ProtectedRoute roles={['admin']}>
+          <ProtectedRoute>
             <Layout>
               <ActivityLogs />
             </Layout>
