@@ -156,7 +156,7 @@ const Login = () => {
     linkedin: 'https://www.linkedin.com/in/dipukraj',
     website: 'https://dipukraj.tech/',
     instagram: 'https://www.instagram.com/r.p.dipu',
-    google: 'https://google.com'
+    google: 'https://google.com/dipukraj'
   };
 
   return (
@@ -433,7 +433,7 @@ const Login = () => {
 
       {/* Bottom Footer */}
       <div className="auth-footer">
-        <span>© {new Date().getFullYear()} Dipu Kumar Raj. All rights reserved.</span>
+        <span>© {new Date().getFullYear()} Dipu K Raj. All rights reserved.</span>
         <span className="footer-divider">|</span>
         <a href="#" onClick={(e) => e.preventDefault()} className="footer-link">Privacy Policy</a>
         <span className="footer-divider">|</span>
