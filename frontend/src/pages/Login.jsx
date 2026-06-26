@@ -156,7 +156,7 @@ const Login = () => {
     linkedin: 'https://www.linkedin.com/in/dipukraj',
     website: 'https://dipukraj.tech/',
     instagram: 'https://www.instagram.com/r.p.dipu',
-    google: 'https://google.com/dipukraj'
+    google: 'https://google.com/dipukraj.tech'
   };
 
   return (
