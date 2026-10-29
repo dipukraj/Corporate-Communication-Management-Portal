@@ -1,6 +1,12 @@
 node_modules/
 .env
+.env.*
+!.env.example
+backend/.env
+frontend/.env
 dist/
 build/
 *.log
 .DS_Store
+Corporate-Communication-Management-Portal-main/
+.vscode/
