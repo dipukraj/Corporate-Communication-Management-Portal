@@ -14,6 +14,9 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 const connectDB = async () => {
+  if (mongoose.connection.readyState === 1) {
+    return true;
+  }
   try {
     const conn = await mongoose.connect(process.env.MONGODB_URI, {
       serverSelectionTimeoutMS: 30000,
