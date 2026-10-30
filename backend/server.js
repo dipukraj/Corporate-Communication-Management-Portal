@@ -44,6 +44,18 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Ensure database connection for serverless environments (Vercel)
+app.use(async (req, res, next) => {
+  if (mongoose.connection.readyState !== 1) {
+    try {
+      await connectDB();
+    } catch (err) {
+      console.error('Database connection failed in middleware:', err.message);
+    }
+  }
+  next();
+});
+
 app.get('/', (req, res) => {
   res.json({
     message: 'CMS Portal API is running',
@@ -56,18 +68,6 @@ app.get('/api/health', (req, res) => {
     status: 'ok',
     mongo: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected',
   });
-});
-
-// Ensure database connection for serverless environments (Vercel)
-app.use(async (req, res, next) => {
-  if (mongoose.connection.readyState !== 1) {
-    try {
-      await connectDB();
-    } catch (err) {
-      console.error('Database connection failed in middleware:', err.message);
-    }
-  }
-  next();
 });
 
 app.use('/api/auth', authRoutes);
